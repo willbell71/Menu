@@ -1,4 +1,4 @@
-$color-dark: #333;
+$color-gray-900: #1A202C;
 $color-white: #fff;
 
 *,
@@ -10,6 +10,6 @@ $color-white: #fff;
 }
 
 body {
-  background: $color-dark;
+  background: $color-gray-900;
   color: $color-white;
 }
