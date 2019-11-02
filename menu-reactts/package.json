@@ -10,6 +10,11 @@
     },
     "preset": "ts-jest"
   },
+  "husky": {
+    "hooks": {
+      "pre-push": "npm t && npm run lint"
+    }
+  },  
   "scripts": {
     "build": "webpack --mode=production",
     "watch": "webpack --watch",
