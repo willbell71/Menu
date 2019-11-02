@@ -3,7 +3,7 @@
   top: 32px;
 }
 
-.menu-options__option {
+.menu-options__option-button {
   background-color: white;
   border-bottom: 1px solid #ddd;
   color: black;
@@ -12,7 +12,8 @@
   padding: 16px 8px;
   transition-duration: 300ms;
 
-  &:hover {
+  &:hover,
+  &:focus {
     background-color: #ddd;
   }
 }

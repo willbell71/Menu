@@ -1,13 +1,18 @@
 .menu {
-  border-bottom: 3px solid transparent;
-  cursor: pointer;
   display: inline-block;
-  padding: 0 8px;
   position: relative;
   transition-duration: 300ms;
+}
+
+.menu__button {
+  border-bottom: 3px solid transparent;
+  cursor: pointer;
+  color: white;
+  padding: 0 8px;
   user-select: none;
 
-  &:hover {
+  &:hover,
+  &:focus {
     border-bottom: 3px solid white;
   }
 }
