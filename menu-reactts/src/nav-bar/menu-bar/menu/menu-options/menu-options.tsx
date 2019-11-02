@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { TMenuOption } from '../tmenuoption';
+import { TMenuOption } from '../../tmenuoption';
 
 import './styles.scss';
 

@@ -1,7 +1,7 @@
 import * as React from 'react';
 
-import { Menu } from './menu/menu';
-import { TMenu } from './menu/tmenu';
+import { MenuBar } from './menu-bar/menu-bar';
+import { TMenu } from './menu-bar/tmenu';
 
 import './styles.scss';
 
@@ -53,7 +53,7 @@ export class NavBar extends React.Component {
     return (
       <nav className="nav-bar">
         <p>Logo</p>
-        <Menu
+        <MenuBar
           menus={ menus }
         />
       </nav>        
