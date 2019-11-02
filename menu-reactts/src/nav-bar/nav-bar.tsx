@@ -1,6 +1,7 @@
 import * as React from 'react';
 
 import { Menu } from './menu/menu';
+import { TMenu } from './menu/tmenu';
 
 import './styles.scss';
 
@@ -13,11 +14,47 @@ export class NavBar extends React.Component {
    * @return {JSX.Element} component render.
    */
   public render(): JSX.Element {
+    // menus
+    const menus: TMenu[] = [{
+      title: 'File',
+      options: [{
+        title: 'New',
+        command: 'new'
+      }, {
+        title: 'Open',
+        command: 'open'
+      }, {
+        title: 'Exit',
+        command: 'exit'
+      }]
+    }, {
+      title: 'Edit',
+      options: [{
+        title: 'Cut',
+        command: 'cut'
+      }, {
+        title: 'Copy',
+        command: 'copy'
+      }, {
+        title: 'Paste',
+        command: 'paste'
+      }]
+    }, {
+      title: 'View',
+      options: []
+    }, {
+      title: 'Help',
+      options: [{
+        title: 'About',
+        command: 'about'
+      }]
+    }];
+
     return (
       <nav className="nav-bar">
         <p>Logo</p>
         <Menu
-          menus={ ['File', 'Edit', 'View', 'Help'] }
+          menus={ menus }
         />
       </nav>        
     );
