@@ -1,0 +1,23 @@
+.menu-options {
+  position: absolute;
+  top: 18px;
+  visibility: hidden;
+
+  &:hover {
+    visibility: visible;
+  }
+}
+
+.menu-options__option {
+  background-color: white;
+  border-bottom: 1px solid #ddd;
+  color: black;
+  cursor: pointer;
+  min-width: 100px;
+  padding: 16px 8px;
+  transition-duration: 300ms;
+
+  &:hover {
+    background-color: #ddd;
+  }
+}

@@ -2,6 +2,11 @@
   cursor: default;
   display: inline;
   margin-left: 8px;
+  position: relative;
   transition-duration: 300ms;
   user-select: none;
+
+  &:hover > * {
+    visibility: visible;
+  }
 }

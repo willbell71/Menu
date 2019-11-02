@@ -1,13 +1,16 @@
 import * as React from 'react';
 
+import { MenuOptions } from './menu-options/menu-options';
+import { TMenu } from './tmenu';
+
 import './styles.scss';
 
 /**
  * Component props.
- * @property {string[]} menus - list of menus.
+ * @property {TMenu[]} menus - list of menus.
  */
 export type TProps = {
-  menus: string[];
+  menus: TMenu[];
 };
 
 /**
@@ -21,11 +24,15 @@ export class Menu extends React.Component<TProps> {
   public render(): JSX.Element {
     return (
       <ul className="menu">
-        {this.props.menus.map((menu: string): JSX.Element => (
+        {this.props.menus.map((menu: TMenu): JSX.Element => (
           <li
             className="menu-item"
-            key={ menu }
-          >{ menu }</li>
+            key={ menu.title }
+          >{ menu.title }
+            <MenuOptions
+              options={ menu.options }
+            />
+          </li>
         ))}
       </ul>
     );

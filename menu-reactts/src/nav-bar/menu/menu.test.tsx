@@ -10,10 +10,13 @@ let props: TProps;
 let wrapper: enzyme.ShallowWrapper<TProps, {}, Menu>;
 beforeEach(() => {
   props = {
-    menus: [
-      'File',
-      'About'
-    ]
+    menus: [{
+      title: 'File',
+      options: []
+    }, {
+      title: 'About',
+      options: []
+    }]
   };
   wrapper = enzyme.shallow(<Menu {...props}/>);
 });
@@ -27,7 +30,7 @@ describe('Menu', () => {
 
   it('should render each menu', () => {
     expect(wrapper.find('li').length).toEqual(2);
-    expect(wrapper.find('li').at(0).text()).toEqual(props.menus[0]);
-    expect(wrapper.find('li').at(1).text()).toEqual(props.menus[1]);
+    expect(wrapper.find('li').at(0).text()).toContain(props.menus[0].title);
+    expect(wrapper.find('li').at(1).text()).toContain(props.menus[1].title);
   });
 });
