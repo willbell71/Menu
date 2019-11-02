@@ -15,6 +15,7 @@ afterEach(() => jest.restoreAllMocks());
 describe('NavBar', () => {
   it('should render', () => {
     expect(wrapper.find('nav').length).toEqual(1);
-    expect(wrapper.find('Menu').length).toEqual(1);
+    expect(wrapper.find('p').length).toEqual(1);
+    expect(wrapper.find('MenuBar').length).toEqual(1);
   });
 });
