@@ -1,5 +1,7 @@
 import * as React from 'react';
 
+import { Menu } from './menu/menu';
+
 import './styles.scss';
 
 /**
@@ -12,8 +14,11 @@ export class NavBar extends React.Component {
    */
   public render(): JSX.Element {
     return (
-      <nav>
-        <h1>Test</h1>
+      <nav className="nav-bar">
+        <p>Logo</p>
+        <Menu
+          menus={ ['File', 'Edit', 'View', 'Help'] }
+        />
       </nav>        
     );
   }
