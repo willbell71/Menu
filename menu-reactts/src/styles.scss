@@ -19,3 +19,10 @@ body {
 ul {
   list-style: none;
 }
+
+button {
+  appearance: none;
+  background: inherit;
+  border: none;
+  outline: none;
+}

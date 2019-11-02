@@ -24,10 +24,13 @@ export class MenuOptions extends React.Component<TProps> {
       <ul className="menu-options">
         {this.props.options.map((option: TMenuOption): JSX.Element => (
           <li
-            className="menu-options__option"
             key={ option.title }
           >
-            { option.title }
+            <button
+              className="menu-options__option-button"
+            >
+              { option.title }
+            </button>
           </li>
         ))}
       </ul>

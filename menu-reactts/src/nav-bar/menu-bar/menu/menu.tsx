@@ -37,11 +37,16 @@ export class Menu extends React.Component<TProps> {
       <li
         className="menu"
         key={ this.props.menu.title }
-        onClick={ this.toggle }
-      >{ this.props.menu.title }
-        {this.props.open && <MenuOptions
-          options={ this.props.menu.options }
-        />}
+      >
+        <button
+          className="menu__button"
+          onClick={ this.toggle }
+          >
+          { this.props.menu.title }
+          {this.props.open && <MenuOptions
+            options={ this.props.menu.options }
+          />}
+        </button>
       </li>
     );
   }
