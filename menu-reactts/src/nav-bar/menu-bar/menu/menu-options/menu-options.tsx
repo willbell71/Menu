@@ -1,14 +1,18 @@
 import * as React from 'react';
 
+import { MenuItem } from './menu-item/menu-item';
 import { TMenuOption } from '../../tmenuoption';
 
 import './styles.scss';
 
 /**
  * Component props.
+ * @property {TMenuOption[]} options - options available in menu.
+ * @property {() => void} closeMenu - close menu.
  */
 export type TProps = {
   options: TMenuOption[];
+  closeMenu: () => void;
 };
 
 /**
@@ -23,15 +27,11 @@ export class MenuOptions extends React.Component<TProps> {
     return (
       <ul className="menu-options">
         {this.props.options.map((option: TMenuOption): JSX.Element => (
-          <li
+          <MenuItem
             key={ option.title }
-          >
-            <button
-              className="menu-options__option-button"
-            >
-              { option.title }
-            </button>
-          </li>
+            option={ option }
+            closeMenu={ this.props.closeMenu }
+          />
         ))}
       </ul>
     );

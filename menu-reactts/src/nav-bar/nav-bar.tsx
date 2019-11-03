@@ -6,55 +6,28 @@ import { TMenu } from './menu-bar/tmenu';
 import './styles.scss';
 
 /**
+ * Component props.
+ * @property {TMenu[]} menus - menu defintions.
+ */
+export type TProps = {
+  menus: TMenu[];
+};
+
+/**
  * Nav bar component.
  */
-export class NavBar extends React.Component {
+export class NavBar extends React.Component<TProps> {
   /**
    * Render.
    * @return {JSX.Element} component render.
    */
   public render(): JSX.Element {
-    // menus
-    const menus: TMenu[] = [{
-      title: 'File',
-      options: [{
-        title: 'New',
-        command: 'new'
-      }, {
-        title: 'Open',
-        command: 'open'
-      }, {
-        title: 'Exit',
-        command: 'exit'
-      }]
-    }, {
-      title: 'Edit',
-      options: [{
-        title: 'Cut',
-        command: 'cut'
-      }, {
-        title: 'Copy',
-        command: 'copy'
-      }, {
-        title: 'Paste',
-        command: 'paste'
-      }]
-    }, {
-      title: 'View',
-      options: []
-    }, {
-      title: 'Help',
-      options: [{
-        title: 'About',
-        command: 'about'
-      }]
-    }];
 
     return (
       <nav className="nav-bar">
         <p>Logo</p>
         <MenuBar
-          menus={ menus }
+          menus={ this.props.menus }
         />
       </nav>        
     );

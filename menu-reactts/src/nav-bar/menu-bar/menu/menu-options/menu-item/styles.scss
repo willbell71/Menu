@@ -1,0 +1,19 @@
+$color-white: #fff;
+$color-black: #000;
+$color-gray-300: #E2E8F0;
+
+.menu-item {
+  background-color: $color-white;
+  border-bottom: 1px solid $color-gray-300;
+  color: $color-black;
+  cursor: pointer;
+  min-width: 100px;
+  padding: 16px 8px;
+  text-align: left;
+  transition-duration: 300ms;
+
+  &:hover,
+  &:focus {
+    background-color: $color-gray-300;
+  }
+}
