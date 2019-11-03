@@ -1,9 +1,9 @@
 /**
  * Menu option.
  * @property {string} title - menu option title.
- * @property {string} command - menu command to emit on selection.
+ * @property {() => void} command - function to execute when menu item selected.
  */
 export type TMenuOption = {
   title: string;
-  command: string;
+  command: () => void;
 };

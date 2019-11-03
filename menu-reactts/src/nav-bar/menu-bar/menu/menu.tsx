@@ -43,10 +43,11 @@ export class Menu extends React.Component<TProps> {
           onClick={ this.toggle }
           >
           { this.props.menu.title }
-          {this.props.open && <MenuOptions
-            options={ this.props.menu.options }
-          />}
         </button>
+        {this.props.open && <MenuOptions
+          options={ this.props.menu.options }
+          closeMenu={ this.toggle }
+        />}
       </li>
     );
   }

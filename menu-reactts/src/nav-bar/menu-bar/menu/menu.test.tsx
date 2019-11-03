@@ -33,6 +33,7 @@ describe('Menu', () => {
 
     expect(wrapper.find('MenuOptions').length).toEqual(1);
     expect(wrapper.find('MenuOptions').prop('options')).toEqual(props.menu.options);
+    expect(wrapper.find('MenuOptions').prop('closeMenu')).toEqual(wrapper.instance().toggle);
   });
 
   it('should invoke props toggle', () => {
