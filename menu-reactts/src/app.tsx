@@ -47,7 +47,7 @@ class App extends React.Component {
       title: 'Help',
       options: [{
         title: 'About',
-        command: (): void => {}
+        command: (): void => { console.log('User selected About'); }
       }]
     }];
 
