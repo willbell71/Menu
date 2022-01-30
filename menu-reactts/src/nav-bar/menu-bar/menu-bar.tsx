@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 
 import { Menu } from './menu/menu';
 import { TMenu } from './tmenu';
@@ -53,6 +53,7 @@ export class MenuBar extends React.Component<TProps, TState> {
             menu={ menu }
             open={ menu.title === this.state.openMenu }
             toggle={ this.toggle }
+            data-testid="menu"
           />
         ))}
       </ul>

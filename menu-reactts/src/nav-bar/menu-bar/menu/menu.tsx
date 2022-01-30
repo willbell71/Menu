@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 
 import { MenuOptions } from './menu-options/menu-options';
 import { TMenu } from '../tmenu';
@@ -41,12 +41,13 @@ export class Menu extends React.Component<TProps> {
         <button
           className="menu__button"
           onClick={ this.toggle }
-          >
+        >
           { this.props.menu.title }
         </button>
         {this.props.open && <MenuOptions
           options={ this.props.menu.options }
           closeMenu={ this.toggle }
+          data-testid="menu-options"
         />}
       </li>
     );

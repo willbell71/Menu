@@ -1,29 +1,37 @@
-import * as React from 'react';
-import * as enzyme from 'enzyme';
-import * as Adapter from 'enzyme-adapter-react-16';
+import React from 'react';
+import { act, create, ReactTestInstance, ReactTestRenderer } from 'react-test-renderer';
 
 import { NavBar, TProps } from './nav-bar';
 
-enzyme.configure({ adapter: new Adapter() });
-
 let props: TProps;
-let wrapper: enzyme.ShallowWrapper<{}, {}, NavBar>;
-beforeEach(() => {
+let renderer: ReactTestRenderer;
+let instance: ReactTestInstance;
+beforeEach(async () => {
   props = {
     menus: [{
       title: 'File',
       options: []
     }]
   };
-  wrapper = enzyme.shallow(<NavBar {...props}/>);
+
+  await act(async () => {
+    renderer = create(
+      <NavBar {...props} />
+    );
+  });
+
+  instance = renderer.root;
 });
-afterEach(() => jest.restoreAllMocks());
+afterEach(() => jest.clearAllMocks());
 
 describe('NavBar', () => {
   it('should render', () => {
-    expect(wrapper.find('nav').length).toEqual(1);
-    expect(wrapper.find('p').length).toEqual(1);
-    expect(wrapper.find('MenuBar').length).toEqual(1);
-    expect(wrapper.find('MenuBar').prop('menus')).toEqual(props.menus);
+    expect(instance).toBeTruthy();
+  });
+
+  it('should render menus', async () => {
+    const menus: ReactTestInstance = instance.findByProps({ 'data-testid': 'menus' });
+
+    expect(menus.props.menus).toEqual(props.menus);
   });
 });

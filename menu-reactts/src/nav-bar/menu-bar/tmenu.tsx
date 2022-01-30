@@ -1,4 +1,3 @@
-
 import { TMenuOption } from './tmenuoption';
 
 /**

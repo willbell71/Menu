@@ -1,14 +1,12 @@
-import * as React from 'react';
-import * as enzyme from 'enzyme';
-import * as Adapter from 'enzyme-adapter-react-16';
+import React from 'react';
+import { act, create, ReactTestInstance, ReactTestRenderer } from 'react-test-renderer';
 
 import { Menu, TProps } from './menu';
 
-enzyme.configure({ adapter: new Adapter() });
-
 let props: TProps;
-let wrapper: enzyme.ShallowWrapper<TProps, {}, Menu>;
-beforeEach(() => {
+let renderer: ReactTestRenderer;
+let instance: ReactTestInstance;
+beforeEach(async () => {
   props = {
     menu: {
       title: 'File',
@@ -17,27 +15,42 @@ beforeEach(() => {
     open: false,
     toggle: jest.fn()
   };
-  wrapper = enzyme.shallow(<Menu {...props}/>);
+
+  await act(async () => {
+    renderer = create(
+      <Menu { ...props } />
+    );
+  });
+
+  instance = renderer.root;
 });
-afterEach(() => jest.restoreAllMocks());
+afterEach(() => jest.clearAllMocks());
 
 describe('Menu', () => {
   it('should render', () => {
-    expect(wrapper.find('li').length).toEqual(1);
-    expect(wrapper.find('li').at(0).text()).toContain(props.menu.title);
-    expect(wrapper.find('MenuOptions').length).toEqual(0);
+    expect(instance).toBeTruthy();
   });
 
-  it('should render menu options when open', () => {
-    wrapper.setProps({open: true});
+  it('should render menu options when open', async () => {
+    props.open = true;
 
-    expect(wrapper.find('MenuOptions').length).toEqual(1);
-    expect(wrapper.find('MenuOptions').prop('options')).toEqual(props.menu.options);
-    expect(wrapper.find('MenuOptions').prop('closeMenu')).toEqual(wrapper.instance().toggle);
+    await act(async () => renderer.update(
+      <Menu {...props} />
+    ));
+
+    const email: ReactTestInstance = instance.findByProps({ 'data-testid': 'menu-options' });
+    expect(email).toBeTruthy();
   });
 
-  it('should invoke props toggle', () => {
-    wrapper.instance().toggle();
+  it('should invoke props toggle', async () => {
+    props.open = true;
+
+    await act(async () => renderer.update(
+      <Menu {...props} />
+    ));
+
+    const menu: ReactTestInstance = instance.findByProps({ 'data-testid': 'menu-options' });
+    await act(async () => menu.props.closeMenu());
 
     expect(props.toggle).toHaveBeenCalledTimes(1);
     expect(props.toggle).toHaveBeenCalledWith(props.menu.title);
