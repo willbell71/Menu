@@ -1,14 +1,12 @@
-import * as React from 'react';
-import * as enzyme from 'enzyme';
-import * as Adapter from 'enzyme-adapter-react-16';
+import React from 'react';
+import { act, create, ReactTestInstance, ReactTestRenderer } from 'react-test-renderer';
 
 import { MenuItem, TProps } from './menu-item';
 
-enzyme.configure({ adapter: new Adapter() });
-
 let props: TProps;
-let wrapper: enzyme.ShallowWrapper<TProps, {}, MenuItem>;
-beforeEach(() => {
+let renderer: ReactTestRenderer;
+let instance: ReactTestInstance;
+beforeEach(async () => {
   props = {
     option: {
       title: 'New',
@@ -16,22 +14,32 @@ beforeEach(() => {
     },
     closeMenu: jest.fn()
   };
-  wrapper = enzyme.shallow(<MenuItem {...props}/>);
+
+  await act(async () => {
+    renderer = create(
+      <MenuItem { ...props } />
+    );
+  });
+
+  instance = renderer.root;
 });
-afterEach(() => jest.restoreAllMocks());
+afterEach(() => jest.clearAllMocks());
 
 describe('MenuItem', () => {
   it('should render', () => {
-    expect(wrapper.find('li').length).toEqual(1);
-    expect(wrapper.find('button').length).toEqual(1);
+    expect(instance).toBeTruthy();
   });
 
-  it('should render button title', () => {
-    expect(wrapper.find('button').text()).toEqual(props.option.title);
+  it('should render button title', async () => {
+    const button: ReactTestInstance = instance.findByProps({ 'data-testid': 'button' });
+
+    expect(button.props.children).toEqual(props.option.title);
   });
 
-  it('should call select for clicking the button', () => {
-    wrapper.find('button').simulate('click');
+  it('should call select for clicking the button', async () => {
+    const button: ReactTestInstance = instance.findByProps({ 'data-testid': 'button' });
+
+    await act(async () => button.props.onClick());
 
     expect(props.closeMenu).toHaveBeenCalledTimes(1);
     expect(props.option.command).toHaveBeenCalledTimes(1);

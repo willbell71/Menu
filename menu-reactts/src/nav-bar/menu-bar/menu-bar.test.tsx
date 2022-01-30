@@ -1,14 +1,12 @@
-import * as React from 'react';
-import * as enzyme from 'enzyme';
-import * as Adapter from 'enzyme-adapter-react-16';
+import React from 'react';
+import { act, create, ReactTestInstance, ReactTestRenderer } from 'react-test-renderer';
 
 import { MenuBar, TProps, TState } from './menu-bar';
 
-enzyme.configure({ adapter: new Adapter() });
-
 let props: TProps;
-let wrapper: enzyme.ShallowWrapper<TProps, {}, MenuBar>;
-beforeEach(() => {
+let renderer: ReactTestRenderer;
+let instance: ReactTestInstance;
+beforeEach(async () => {
   props = {
     menus: [{
       title: 'File',
@@ -18,43 +16,41 @@ beforeEach(() => {
       options: []
     }]
   };
-  wrapper = enzyme.shallow(<MenuBar {...props}/>);
+
+  await act(async () => {
+    renderer = create(
+      <MenuBar {...props} />
+    );
+  });
+
+  instance = renderer.root;
 });
-afterEach(() => jest.restoreAllMocks());
+afterEach(() => jest.clearAllMocks());
 
 describe('Menu', () => {
   it('should render', () => {
-    expect(wrapper.find('ul').length).toEqual(1);
-    expect(wrapper.find('Menu').length).toEqual(2);
+    expect(instance).toBeTruthy();
   });
 
-  it('should render first menu', () => {
-    expect(wrapper.find('Menu').length).toEqual(2);
-    expect(wrapper.find('Menu').at(0).prop('menu')).toEqual(props.menus[0]);
-    expect(wrapper.find('Menu').at(0).prop('open')).toEqual(false);
-    expect(wrapper.find('Menu').at(0).prop('toggle')).toEqual(wrapper.instance().toggle);
+  it('should change open menu when calling toggle', async () => {
+    const menus: ReactTestInstance[] = instance.findAllByProps({ 'data-testid': 'menu' });
+
+    expect(menus[0].props.open).toBeFalsy();
+
+    await act(async () => menus[0].props.toggle('File'));
+
+    expect(menus[0].props.open).toBeTruthy();
   });
 
-  it('should render second menu', () => {
-    expect(wrapper.find('Menu').length).toEqual(2);
-    expect(wrapper.find('Menu').at(1).prop('menu')).toEqual(props.menus[1]);
-    expect(wrapper.find('Menu').at(1).prop('open')).toEqual(false);
-    expect(wrapper.find('Menu').at(1).prop('toggle')).toEqual(wrapper.instance().toggle);
-  });
+  it('should close open menu when calling toggle twice', async () => {
+    const menus: ReactTestInstance[] = instance.findAllByProps({ 'data-testid': 'menu' });
 
-  it('should change open menu when calling toggle', () => {
-    wrapper.instance().toggle('File');
-    expect(wrapper.instance().state.openMenu).toEqual('File');
+    expect(menus[0].props.open).toBeFalsy();
 
-    wrapper.instance().toggle('About');
-    expect(wrapper.instance().state.openMenu).toEqual('About');
-  });
+    await act(async () => menus[0].props.toggle('File'));
+    expect(menus[0].props.open).toBeTruthy();
 
-  it('should close open menu when calling toggle twice', () => {
-    wrapper.instance().toggle('File');
-    expect(wrapper.instance().state.openMenu).toEqual('File');
-
-    wrapper.instance().toggle('File');
-    expect(wrapper.instance().state.openMenu).toEqual('');
+    await act(async () => menus[0].props.toggle('File'));
+    expect(menus[0].props.open).toBeFalsy();
   });
 });

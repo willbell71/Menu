@@ -38,7 +38,11 @@ module.exports = {
         {
           loader: 'postcss-loader',
           options: {
-            plugins: () => require('autoprefixer')()
+            postcssOptions: {
+              plugins: [
+                () => require('autoprefixer')({ grid: true })
+              ]
+            }
           }
         },
         'sass-loader'
@@ -46,8 +50,10 @@ module.exports = {
     }]
   },
   plugins: [
-    new CopyPlugin([{
-      from: 'assets'
-    }])
+    new CopyPlugin({
+      patterns: [{
+        from: 'assets'
+      }]
+    })
   ]
 };

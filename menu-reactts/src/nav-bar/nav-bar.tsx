@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { FC } from 'react';
 
 import { MenuBar } from './menu-bar/menu-bar';
 import { TMenu } from './menu-bar/tmenu';
@@ -16,20 +16,12 @@ export type TProps = {
 /**
  * Nav bar component.
  */
-export class NavBar extends React.Component<TProps> {
-  /**
-   * Render.
-   * @return {JSX.Element} component render.
-   */
-  public render(): JSX.Element {
-
-    return (
-      <nav className="nav-bar">
-        <p>Logo</p>
-        <MenuBar
-          menus={ this.props.menus }
-        />
-      </nav>        
-    );
-  }
-}
+export const NavBar: FC<TProps> = ({ menus }: TProps): JSX.Element => (
+  <nav className="nav-bar">
+    <p>Logo</p>
+    <MenuBar
+      menus={ menus }
+      data-testid="menus"
+    />
+  </nav>
+);

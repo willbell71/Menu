@@ -1,9 +1,8 @@
-import * as React from 'react';
+import React from 'react';
 
 import { TMenuOption } from '../../../tmenuoption';
 
 import './styles.scss';
-import { thisExpression } from '@babel/types';
 
 /**
  * Component props.
@@ -42,6 +41,7 @@ export class MenuItem extends React.Component<TProps> {
         <button
           className="menu-item"
           onClick={ this.select }
+          data-testid="button"
         >
           { this.props.option.title }
         </button>
